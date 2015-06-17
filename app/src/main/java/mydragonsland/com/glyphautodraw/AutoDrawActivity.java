@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.View;
 
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ public class AutoDrawActivity extends ActionBarActivity {
     private int[] NOURISH = {5, 10, 8};
     private int[] PEACE = {0, 3, 4, 5, 6, 7, 10};
 
-    private String ADB_TEMPLATE = "adb shell input swipe %d %d %d %d\r\n";
+    private String ADB_TEMPLATE = "adb shell` input swipe %d %d %d %d\r\n";
 
     private void init() {
         VertexList.add(p0);
@@ -69,14 +68,11 @@ public class AutoDrawActivity extends ActionBarActivity {
         setContentView(R.layout.activity_auto_draw);
         weakUpScreen();
 
+        startService(new Intent(getBaseContext(), FloatingWindowsService.class));
 
         init();
         String s = GlyphToString(PEACE);
         Log.e(LOG_TAG, "\r\n" + s);
-    }
-
-    public void startDrawService(View view) {
-        startService(new Intent(getBaseContext(), ChatHeadService.class));
     }
 
     private void weakUpScreen() {
