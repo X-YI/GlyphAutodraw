@@ -59,7 +59,6 @@ public class AutoDrawActivity extends ActionBarActivity {
     }
 
     private void execute() {
-
     }
 
     @Override
@@ -68,11 +67,13 @@ public class AutoDrawActivity extends ActionBarActivity {
         setContentView(R.layout.activity_auto_draw);
         weakUpScreen();
 
-        startService(new Intent(getBaseContext(), FloatingWindowsService.class));
+        FloatingWindowsService floatingWindowsService= new FloatingWindowsService();
+        startService(new Intent(getBaseContext(), floatingWindowsService.getClass()));
 
         init();
         String s = GlyphToString(PEACE);
         Log.e(LOG_TAG, "\r\n" + s);
+        execute();
     }
 
     private void weakUpScreen() {

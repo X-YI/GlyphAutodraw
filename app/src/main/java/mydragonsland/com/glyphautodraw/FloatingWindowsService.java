@@ -1,5 +1,6 @@
 package mydragonsland.com.glyphautodraw;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+
 
 /**
  * Created by wangxin on 15/6/16.
@@ -22,6 +24,7 @@ public class FloatingWindowsService extends Service {
     private Button endRecordButton;
     private int buttonOffsetX = 200;
     private boolean visible = false;
+
 
     @Override public IBinder onBind(Intent intent) {
         // Not used
@@ -39,6 +42,12 @@ public class FloatingWindowsService extends Service {
         startRecordButton.setText("开录");
         endRecordButton = new Button(this);
         endRecordButton.setText("结录");
+
+        startRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
 
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
