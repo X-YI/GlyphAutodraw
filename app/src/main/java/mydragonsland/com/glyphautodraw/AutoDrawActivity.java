@@ -30,7 +30,7 @@ public class AutoDrawActivity extends ActionBarActivity {
     private int[] NOURISH = {5, 10, 8};
     private int[] PEACE = {0, 3, 4, 5, 6, 7, 10};
 
-    private String ADB_TEMPLATE = "adb shell` input swipe %d %d %d %d\r\n";
+    private String ADB_TEMPLATE = "adb shell input swipe %d %d %d %d\r\n";
 
     private void init() {
         VertexList.add(p0);

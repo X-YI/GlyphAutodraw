@@ -1,6 +1,5 @@
 package mydragonsland.com.glyphautodraw;
 
-import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -11,6 +10,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 
 /**
@@ -26,12 +28,14 @@ public class FloatingWindowsService extends Service {
     private boolean visible = false;
 
 
-    @Override public IBinder onBind(Intent intent) {
+    @Override
+    public IBinder onBind(Intent intent) {
         // Not used
         return null;
     }
 
-    @Override public void onCreate() {
+    @Override
+    public void onCreate() {
         super.onCreate();
 
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -46,6 +50,7 @@ public class FloatingWindowsService extends Service {
         startRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                executeCommand();
             }
         });
 
@@ -150,5 +155,20 @@ public class FloatingWindowsService extends Service {
         if (floatingWindows != null) windowManager.removeView(floatingWindows);
         if (startRecordButton != null) windowManager.removeView(startRecordButton);
         if (endRecordButton != null) windowManager.removeView(endRecordButton);
+    }
+
+    private void executeCommand() {
+        Process root = null;
+        try {
+            root = Runtime.getRuntime().exec("su");
+            DataOutputStream d = new DataOutputStream(root.getOutputStream());
+            //Hack to read the contents of wpa_supplicant.conf
+            d.writeBytes("sh /sdcard/getevent_input.scr\n");
+            d.writeBytes("exit\n");
+            d.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
