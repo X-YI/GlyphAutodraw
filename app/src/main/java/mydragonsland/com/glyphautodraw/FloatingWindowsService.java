@@ -157,13 +157,13 @@ public class FloatingWindowsService extends Service {
         if (endRecordButton != null) windowManager.removeView(endRecordButton);
     }
 
-    private void executeCommand() {
+    public static void executeCommand() {
         Process root = null;
         try {
             root = Runtime.getRuntime().exec("su");
             DataOutputStream d = new DataOutputStream(root.getOutputStream());
             //Hack to read the contents of wpa_supplicant.conf
-            d.writeBytes("sh /sdcard/getevent_input.scr\n");
+            d.writeBytes("sh /sdcard/sendevent_input.sh\n");
             d.writeBytes("exit\n");
             d.flush();
         } catch (IOException e) {

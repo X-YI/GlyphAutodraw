@@ -1,16 +1,16 @@
 package mydragonsland.com.glyphautodraw;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import java.util.ArrayList;
 
 
-public class AutoDrawActivity extends ActionBarActivity {
+public class AutoDrawActivity extends Activity {
 
     private String LOG_TAG = "AutoDrawDragonsLand";
 
@@ -59,16 +59,18 @@ public class AutoDrawActivity extends ActionBarActivity {
     }
 
     private void execute() {
+        FloatingWindowsService.executeCommand();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auto_draw);
+//        setContentView(R.layout.activity_auto_draw);
         weakUpScreen();
 
         FloatingWindowsService floatingWindowsService= new FloatingWindowsService();
         startService(new Intent(getBaseContext(), floatingWindowsService.getClass()));
+        finish();
 
         init();
         String s = GlyphToString(PEACE);
